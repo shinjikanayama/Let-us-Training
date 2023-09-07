@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :users, only: [:show, :edit]
-  resources :genres, only: [:index, :edit]
+  resources :users, only: [:show, :edit, :update]
+  resources :genres, only: [:index, :edit, :create, :update, :destroy]
   resources :posts do
   get 'log', on: :collection
   end

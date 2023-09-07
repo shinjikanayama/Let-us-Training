@@ -1,8 +1,22 @@
+  <!--カレンダー機能-->
+<%= month_calendar posts: @posts do |date, posts| %>
+  <%= date.day %>
+    <% posts.each do |post| %>
+      <div>
+        <%= post.genre.name %>
+      </div>
+    <% end %>
+<% end %>
+
+
 <div class="container">
+
   <div class="row">
     <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>
 
       <div class="btn-wrapper col-10 mx-auto">
+
+
         <div class="row">
           <%= link_to '本日のトレーニングの追加',new_post_path, class: "btn btn-info btn-sm btn-block mb-3" %>
         </div>
