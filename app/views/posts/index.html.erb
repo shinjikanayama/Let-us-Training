@@ -1,10 +1,19 @@
+<h1>投稿一覧</h1>
+
 <% @posts.each do |post| %>
-<div class="card border-dark mb-3" style="max-width: 18rem;">
+
+<div class="card border-light mb-3" style="max-width: 20rem;">
+  <div class="card-header bg-transparent border-light">投稿ユーザー画像</div>
   <div class="card-body text-dark">
-    <p><%= l post.created_at, format: :short %></p>
     <h5 class="card-title"><%= post.genre.name %></h5>
-    <p class="card-text"><%= post.body %></p>
-　　 <%= link_to "詳細", post %>
+    <p class="card-text">内容：<%= post.body %></br>
+    投稿画像：<%= image_tag post.image.variant(resize: "50x50") if post.image.attached? %>
+    </p>
+
+  </div>
+  <div class="card-footer bg-transparent border-light">
+    <%= link_to '詳細', post_path(post) %>
   </div>
 </div>
+
 <% end %>

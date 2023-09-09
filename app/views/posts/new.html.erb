@@ -1,4 +1,4 @@
-<div class="container mt-4" style="padding-bottom: 70px;">
+<div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h2>新規投稿</h2>
@@ -22,7 +22,7 @@
 
         <div class="image">
           <%= f.label :画像 %>
-          <%= f.file_field :image %>
+          <%= f.file_field :image, accept: "image/*" %>
         </div>
 
         <div class="actions">

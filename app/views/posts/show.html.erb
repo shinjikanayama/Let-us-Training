@@ -1,2 +1,19 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<h1>投稿詳細</h1>
+<% if @post.user == current_user %>
+ <%= link_to '編集する', edit_post_path(@post), class: "btn btn-sm btn-success" %>
+ <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
+<% end %>
+
+<div class="card border-light mb-3" style="max-width: 20rem;">
+  <div class="card-header bg-transparent border-light">投稿ユーザー画像</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title"><%= @post.genre.name %></h5>
+    <p class="card-text">内容：<%= @post.body %></br>
+    投稿画像：<%= image_tag @post.image.variant(resize: "50x50") if @post.image.attached? %>
+    </p>
+
+  </div>
+  <div class="card-footer bg-transparent border-light">
+
+  </div>
+</div>
