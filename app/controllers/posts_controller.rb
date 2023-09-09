@@ -13,6 +13,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @users = User.all
   end
 
   def show
@@ -41,6 +42,7 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  private
 
   def post_params
     params.require(:post).permit(:genre_id, :body, :start_time, :image)

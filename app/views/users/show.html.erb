@@ -1,8 +1,8 @@
 <!--yユーザーの詳細-->
 
 <div>
-  <%= image_tag @user.get_profile_image, size: "50x50" %>
+  <%= image_tag @user.profile_image, size: "50x50" %>
   <%= @user.name %>
   <%= @user.goal %>
-  <%= link_to 'プロフィールを編集する', edit_user_path(user), class: "btn btn-sm btn-success" %>
+  <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-sm btn-success" %>
 </div>

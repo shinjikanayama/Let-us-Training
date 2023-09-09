@@ -3,7 +3,14 @@
 <% @posts.each do |post| %>
 
 <div class="card border-light mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-transparent border-light">投稿ユーザー画像</div>
+  <div class="card-header bg-transparent border-light">
+    <% if post.user.present? && post.user.profile_image.attached? %>
+      <%= image_tag post.user.profile_image, size: "50x50" %>
+    <% else %>
+       <!--画像が存在しない場合-->
+      <%= image_tag 'no_image.jpg', size: "50x50" %>
+    <% end %>
+  </div>
   <div class="card-body text-dark">
     <h5 class="card-title"><%= post.genre.name %></h5>
     <p class="card-text">内容：<%= post.body %></br>
