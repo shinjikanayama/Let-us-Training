@@ -20,6 +20,7 @@
   </div>
   <div class="card-footer bg-transparent border-light">
     <%= link_to '詳細', post_path(post) %>
+    <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
   </div>
 </div>
 

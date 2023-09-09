@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :genres, only: [:index, :edit, :create, :update, :destroy]
   resources :posts do
-  get 'log', on: :collection
+    resources :comments, only: [:create, :destroy]
+    get 'log', on: :collection
   end
 
 

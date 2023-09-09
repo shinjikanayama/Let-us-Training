@@ -14,6 +14,30 @@
 
   </div>
   <div class="card-footer bg-transparent border-light">
+    <div>
+      <p>コメント件数：<%= @post.comments.count %></p>
+      <% @post.comments.each do |comment| %>
+        <p>
+          <% if comment.user.profile_image.present? %>
+            <%= image_tag comment.user.profile_image, size: "50x50" %>
+          <% else %>
+           <!--画像が存在しない場合-->
+     　　　　 <%= image_tag 'no_image.jpg', size: "50x50" %>
+          <% end %>
 
+        </p>
+        <%= comment.user.name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+        <% if comment.user == current_user %>
+          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+        <% end %>
+      <% end %>
+    </div>
+    <div>
+      <%= form_with model: [@post, @comment] do |f| %>
+        <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
+    </div>
   </div>
 </div>
