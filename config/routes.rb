@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :genres, only: [:index, :edit, :create, :update, :destroy]
   resources :posts do
     resources :comments, only: [:create, :destroy]
+    resource :likes, only: [:create, :destroy]
     get 'log', on: :collection
   end
 

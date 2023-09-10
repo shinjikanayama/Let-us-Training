@@ -1,7 +1,11 @@
 <!--yユーザーの詳細-->
 
 <div>
-  <%= image_tag @user.profile_image, size: "50x50" %>
+  <% if @user.profile_image.present? %>
+    <%= image_tag @user.profile_image, size: "50x50" %>
+  <% else %>
+    <%= image_tag 'no_image.jpg', size: "50x50" %>
+  <% end %>
   <%= @user.name %>
   <%= @user.goal %>
   <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-sm btn-success" %>

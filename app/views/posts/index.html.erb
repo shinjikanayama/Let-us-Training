@@ -21,6 +21,19 @@
   <div class="card-footer bg-transparent border-light">
     <%= link_to '詳細', post_path(post) %>
     <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+    <% if post.liked_by?(current_user) %>
+      <p>
+        <%= link_to post_likes_path(post), method: :delete do %>
+          ♥<%= post.likes.count %>
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to post_likes_path(post), method: :post do %>
+          ♡<%= post.likes.count %>
+        <% end %>
+      </p>
+    <% end %>
   </div>
 </div>
 

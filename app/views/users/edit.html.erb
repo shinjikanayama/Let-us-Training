@@ -9,7 +9,11 @@
 
         <div class="form-group row">
           <div class="col-md-4">
-          <%= image_tag @user.profile_image, size: "50x50" %>
+            <% if @user.profile_image.present? %>
+              <%= image_tag @user.profile_image, size: "50x50" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', size: "50x50" %>
+            <% end %>
           </div>
           <div class="col-md-8">
             <%= f.file_field :profile_image, accept: "image/*" %>

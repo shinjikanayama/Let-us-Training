@@ -14,6 +14,21 @@
 
   </div>
   <div class="card-footer bg-transparent border-light">
+    <!-いいね機能-->
+    <% if @post.liked_by?(current_user) %>
+      <p>
+        <%= link_to post_likes_path(@post), method: :delete do %>
+          ♥<%= @post.likes.count %>
+        <% end %>
+      </p>
+      <% else %>
+      <p>
+        <%= link_to post_likes_path(@post), method: :post do %>
+          ♡<%= @post.likes.count %>
+        <% end %>
+      </p>
+    <% end %>
+
     <div>
       <p>コメント件数：<%= @post.comments.count %></p>
       <% @post.comments.each do |comment| %>
