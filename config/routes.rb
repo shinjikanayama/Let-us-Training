@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    resource :follows, only: [:create, :destroy]
+    get 'followings' => 'follows#followings', as: 'followings'
+    get 'followers' => 'follows#followers', as: 'followers'
+  end
   resources :genres, only: [:index, :edit, :create, :update, :destroy]
   resources :posts do
     resources :comments, only: [:create, :destroy]

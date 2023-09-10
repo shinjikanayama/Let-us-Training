@@ -18,6 +18,15 @@ class User < ApplicationRecord
   has_many :followings, through: :follows, source: :followed
   has_many :followers, through: :reverse_of_follows, source: :follower
 
+  # プロフィール画像がない場合no_image.jpgを表示
+  def get_profile_image
+    if profile_image.attached?
+      image
+    else
+      'no_image.jpg'
+    end
+  end
+
    # フォローしたときの処理
   def follow(user_id)
     follows.create(followed_id: user_id)
@@ -31,12 +40,4 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
-　# プロフィール画像がない場合no_image.jpgを表示
-  def get_profile_image
-    if profile_image.attached?
-      image
-    else
-      'no_image.jpg'
-    end
-  end
 end

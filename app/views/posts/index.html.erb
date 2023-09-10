@@ -10,6 +10,7 @@
        <!--画像が存在しない場合-->
       <%= image_tag 'no_image.jpg', size: "50x50" %>
     <% end %>
+    <%= link_to post.user.name, user_path(post.user) %>
   </div>
   <div class="card-body text-dark">
     <h5 class="card-title"><%= post.genre.name %></h5>
