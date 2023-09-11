@@ -1,41 +1,48 @@
-<h1>投稿一覧</h1>
+<!-- 投稿一覧ページ -->
 
-<% @posts.each do |post| %>
+<div class="container">
+  <h1 class="mt-4">投稿一覧</h1>
 
-<div class="card border-light mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-transparent border-light">
-    <% if post.user.present? && post.user.profile_image.attached? %>
-      <%= image_tag post.user.profile_image, size: "50x50" %>
-    <% else %>
-       <!--画像が存在しない場合-->
-      <%= image_tag 'no_image.jpg', size: "50x50" %>
-    <% end %>
-    <%= link_to post.user.name, user_path(post.user) %>
-  </div>
-  <div class="card-body text-dark">
-    <h5 class="card-title"><%= post.genre.name %></h5>
-    <p class="card-text">内容：<%= post.body %></br>
-    投稿画像：<%= image_tag post.image.variant(resize: "50x50") if post.image.attached? %>
-    </p>
-
-  </div>
-  <div class="card-footer bg-transparent border-light">
-    <%= link_to '詳細', post_path(post) %>
-    <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
-    <% if post.liked_by?(current_user) %>
-      <p>
-        <%= link_to post_likes_path(post), method: :delete do %>
-          ♥<%= post.likes.count %>
+  <!-- 投稿一覧 -->
+  <% @posts.each do |post| %>
+    <div class="card mb-4">
+      <div class="card-body">
+        <!-- プロフィール画像 -->
+        <% if post.user.present? && post.user.profile_image.attached? %>
+          <%= image_tag post.user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
         <% end %>
-      </p>
-      <% else %>
-      <p>
-        <%= link_to post_likes_path(post), method: :post do %>
-          ♡<%= post.likes.count %>
+
+        <!-- ユーザー名 -->
+        <h5 class="card-title"><%= link_to post.user.name, user_path(post.user) %></h5>
+
+        <!-- 投稿内容 -->
+        <p class="card-text"><%= post.body %></p>
+
+        <!-- 投稿画像 -->
+        <% if post.image.attached? %>
+          <%= image_tag post.image.variant(resize: "300x200"), class: "img-fluid" %>
         <% end %>
-      </p>
-    <% end %>
-  </div>
+      </div>
+      <div class="card-footer">
+        <!-- 詳細リンク -->
+        <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary btn-sm" %>
+
+        <!-- コメント数 -->
+        <span class="ml-3"><%= "#{post.comments.count} コメント" %></span>
+
+        <!-- いいね（お気に入り）ボタン -->
+        <% if post.liked_by?(current_user) %>
+          <%= link_to post_likes_path(post), method: :delete, class: "btn btn-danger btn-sm" do %>
+            ♥ <%= post.likes.count %>
+          <% end %>
+        <% else %>
+          <%= link_to post_likes_path(post), method: :post, class: "btn btn-primary btn-sm" do %>
+            ♡ <%= post.likes.count %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
-
-<% end %>

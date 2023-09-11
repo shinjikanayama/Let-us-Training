@@ -21,9 +21,16 @@
       <%= link_to "フォローする", user_follows_path(@user.id), method: :post, class: "btn btn-sm btn-success" %>
     <% end %>
   <% end %>
-  
 
-   <%= link_to user.followings.count, user_followings_path(user.id) %>
+    <h6>フォロワー</h6>
+        <%= link_to user_followers_path(@user) do %>
+          <h6><%= @user.followers.count %></h6>
+        <% end %>
+
+    <h6>フォロー</h6>
+          <%= link_to user_followings_path(@user) do %>
+            <h6><%= @user.followings.count %></h6>
+          <% end %>
 
 
 
