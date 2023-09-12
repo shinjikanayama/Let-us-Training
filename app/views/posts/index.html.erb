@@ -1,48 +1,65 @@
 <!-- 投稿一覧ページ -->
 
 <div class="container">
-  <h1 class="mt-4">投稿一覧</h1>
+  <h1 class="mt-6">投稿一覧</h1>
 
   <!-- 投稿一覧 -->
-  <% @posts.each do |post| %>
-    <div class="card mb-4">
-      <div class="card-body">
-        <!-- プロフィール画像 -->
-        <% if post.user.present? && post.user.profile_image.attached? %>
-          <%= image_tag post.user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
-        <% end %>
-
-        <!-- ユーザー名 -->
-        <h5 class="card-title"><%= link_to post.user.name, user_path(post.user) %></h5>
-
-        <!-- 投稿内容 -->
-        <p class="card-text"><%= post.body %></p>
-
-        <!-- 投稿画像 -->
-        <% if post.image.attached? %>
-          <%= image_tag post.image.variant(resize: "300x200"), class: "img-fluid" %>
-        <% end %>
-      </div>
-      <div class="card-footer">
-        <!-- 詳細リンク -->
-        <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary btn-sm" %>
-
-        <!-- コメント数 -->
-        <span class="ml-3"><%= "#{post.comments.count} コメント" %></span>
-
-        <!-- いいね（お気に入り）ボタン -->
-        <% if post.liked_by?(current_user) %>
-          <%= link_to post_likes_path(post), method: :delete, class: "btn btn-danger btn-sm" do %>
-            ♥ <%= post.likes.count %>
+  <div class="row">
+    <% @posts.order(created_at: :desc).each do |post| %>
+     <div class="col-md-7 mb-4">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <!-- プロフィール画像 -->
+          <% if post.user.present? && post.user.profile_image.attached? %>
+            <%= image_tag post.user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
           <% end %>
-        <% else %>
-          <%= link_to post_likes_path(post), method: :post, class: "btn btn-primary btn-sm" do %>
-            ♡ <%= post.likes.count %>
+
+          <!-- ユーザー名 -->
+          <h5 class="card-title mx-5"><%= link_to post.user.name, user_path(post.user) %></h5>
+
+
+        </div>
+
+
+
+
+        <div class="card-body">
+          <!-- 投稿内容 -->
+          <!--simple_formatで改行を導入-->
+          <h5 class="card-title">・<%= post.genre.name %></h5>
+          <p class="card-text"><%= simple_format(post.body) %></p>
+
+          <!-- 投稿画像 -->
+          <% if post.image.attached? %>
+            <%= image_tag post.image.variant(resize: "300x200"), class: "img-fluid" %>
           <% end %>
-        <% end %>
+        </div>
+
+
+        <div class="card-footer">
+          <!-- 詳細リンク -->
+          <%= link_to '詳細を見る', post_path(post), class: "btn btn-primary btn-sm" %>
+
+          <!-- コメント数 -->
+          <span class="ml-3"><%= "#{post.comments.count} コメント" %></span>
+
+          <!-- いいね（お気に入り）ボタン -->
+          <% if post.liked_by?(current_user) %>
+            <%= link_to post_likes_path(post), method: :delete, class: "btn btn-danger btn-sm" do %>
+              ♥ <%= post.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(post), method: :post, class: "btn btn-primary btn-sm" do %>
+              ♡ <%= post.likes.count %>
+            <% end %>
+          <% end %>
+
+          <p class="time">投稿日時:<%= post.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
+        </div>
       </div>
-    </div>
-  <% end %>
+     </div>
+    <% end %>
+  </div>
 </div>
