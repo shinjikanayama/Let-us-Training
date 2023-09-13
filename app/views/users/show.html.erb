@@ -1,37 +1,64 @@
-<!--yユーザーの詳細-->
-
-<div>
-  <% if @user.profile_image.present? %>
-    <%= image_tag @user.profile_image, size: "50x50" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', size: "50x50" %>
-  <% end %>
-
-
-  <%= @user.name %>
-  <%= @user.goal %>
-
-  <% if current_user == @user %>
-    <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-sm btn-success" %>
-  <% else %>
-      <!--フォロー機能-->
-    <% if current_user.following?(@user) %>
-      <%= link_to "フォロー外す", user_follows_path(@user.id), method: :delete, class: "btn btn-sm btn-success" %>
-    <% else %>
-      <%= link_to "フォローする", user_follows_path(@user.id), method: :post, class: "btn btn-sm btn-success" %>
-    <% end %>
-  <% end %>
-
-    <h6>フォロワー</h6>
-        <%= link_to user_followers_path(@user) do %>
-          <h6><%= @user.followers.count %></h6>
-        <% end %>
-
-    <h6>フォロー</h6>
-          <%= link_to user_followings_path(@user) do %>
-            <h6><%= @user.followings.count %></h6>
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col-4">
+      <div class="user-profile text-center">
+        <div class="profile-header">
+          <% if @user.profile_image.present? %>
+            <%= image_tag @user.profile_image, class: "rounded-circle profile-image", width: "150", height: "150" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "150", height: "150" %>
           <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-7">
+      <div class="border" style="padding:10px;">
+        <table class='table'>
+　　　　　 <tr>
+        	  <th>名前</th>
+        	  <th><%= @user.name %></th>
+          </tr>
+          <tr>
+        	  <th>目標</th>
+        	  <th><%= @user.goal %></th>
+          </tr>
+          <tr>
+            <th>フォロー</th>
+            <th>
+              <%= link_to user_followings_path(@user) do %>
+                <h6><%= @user.followings.count %></h6>
+              <% end %>
+            </th>
+          </tr>
+          <tr>
+            <th>フォロワー</th>
+            <th>
+              <%= link_to user_followers_path(@user) do %>
+                <h6><%= @user.followers.count %></h6>
+              <% end %>
+            </th>
+          </tr>
+        </table>
 
 
 
+          <% if current_user == @user %>
+            <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-primary btn-sm" %>
+          <% else %>
+            <!-- フォロー機能 -->
+            <% if current_user.following?(@user) %>
+              <%= link_to "フォロー外す", user_follows_path(@user.id), method: :delete, class: "btn btn-success btn-sm" %>
+            <% else %>
+              <%= link_to "フォローする", user_follows_path(@user.id), method: :post, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          <% end %>
+        </div>
+  　   </div>
+    </div>
+  </div>
 </div>
+
+
+
+

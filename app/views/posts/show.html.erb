@@ -1,58 +1,105 @@
-<h1>投稿詳細</h1>
-<% if @post.user == current_user %>
- <%= link_to '編集する', edit_post_path(@post), class: "btn btn-sm btn-success" %>
- <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
-<% end %>
-
-<div class="card border-light mb-3" style="max-width: 20rem;">
-  <div class="card-header bg-transparent border-light">投稿ユーザー画像</div>
-  <div class="card-body text-dark">
-    <h5 class="card-title"><%= @post.genre.name %></h5>
-    <p class="card-text">内容：<%= @post.body %></br>
-    投稿画像：<%= image_tag @post.image.variant(resize: "50x50") if @post.image.attached? %>
-    </p>
-
-  </div>
-  <div class="card-footer bg-transparent border-light">
-    <!-いいね機能-->
-    <% if @post.liked_by?(current_user) %>
-      <p>
-        <%= link_to post_likes_path(@post), method: :delete do %>
-          ♥<%= @post.likes.count %>
-        <% end %>
-      </p>
-      <% else %>
-      <p>
-        <%= link_to post_likes_path(@post), method: :post do %>
-          ♡<%= @post.likes.count %>
-        <% end %>
-      </p>
-    <% end %>
-
-    <div>
-      <p>コメント件数：<%= @post.comments.count %></p>
-      <% @post.comments.each do |comment| %>
-        <p>
-          <% if comment.user.profile_image.present? %>
-            <%= image_tag comment.user.profile_image, size: "50x50" %>
+<!-- 投稿詳細 -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7 mb-4">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <!-- プロフィール画像 -->
+          <% if @post.user.present? && @post.user.profile_image.attached? %>
+            <%= image_tag @post.user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
           <% else %>
-           <!--画像が存在しない場合-->
-     　　　　 <%= image_tag 'no_image.jpg', size: "50x50" %>
+            <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
           <% end %>
 
-        </p>
-        <%= comment.user.name %>
-        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-        <% if comment.user == current_user %>
-          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
-        <% end %>
-      <% end %>
-    </div>
-    <div>
-      <%= form_with model: [@post, @comment] do |f| %>
-        <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
-        <%= f.submit "送信する" %>
-      <% end %>
+          <!-- ユーザー名 -->
+          <h5 class="card-title mx-5"><%= link_to @post.user.name, user_path(@post.user) %></h5>
+          <!-- 編集と削除ボタン -->
+          <% if @post.user == current_user %>
+            <div class="text-center my-3">
+              <%= link_to '編集する', edit_post_path(@post), class: "btn btn-sm btn-success mx-2" %>
+              <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm mx-2" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="card-body">
+          <!-- 投稿内容 -->
+          <!--simple_formatで改行を導入-->
+          <h5 class="card-title">・<%= @post.genre.name %></h5>
+          <p class="card-text"><%= simple_format(@post.body) %></p>
+          <p class="text-muted">投稿日時:<%= @post.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
+
+          <!-- 投稿画像 -->
+          <% if @post.image.attached? %>
+            <%= image_tag @post.image.variant(resize: "300x200"), class: "img-fluid" %>
+          <% end %>
+        </div>
+
+        <div class="card-footer">
+          <!-- コメント数 -->
+          <span class="ml-3">
+            <i class="far fa-comment-alt"></i>
+            <%= @post.comments.count %>件
+          </span>
+
+          <!-- いいね（お気に入り）ボタン -->
+          <% if @post.liked_by?(current_user) %>
+            <%= link_to post_likes_path(@post), method: :delete, class: "btn btn-danger btn-sm" do %>
+              <i class="fas fa-thumbs-up"></i>
+              <%= @post.likes.count %>
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(@post), method: :post, class: "btn btn-primary btn-sm" do %>
+              <i class="far fa-thumbs-up"></i>
+              <%= @post.likes.count %>
+            <% end %>
+          <% end %>
+
+          <!-- コメントの表示 -->
+          <% @post.comments.each do |comment| %>
+            <div class="comment">
+              <% if comment.user.profile_image.present? %>
+                <%= image_tag comment.user.profile_image, size: "50x50", class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag 'no_image.jpg', size: "50x50", class: "rounded-circle" %>
+              <% end %>
+              <span class="comment-info">
+                <%= comment.user.name %> <%= comment.created_at.strftime('%Y/%m/%d') %>
+              </span>
+              <p class="comment-body">
+                <%= comment.body %>
+                <% if comment.user == current_user %>
+                  <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+                <% end %>
+              </p>
+            </div>
+          <% end %>
+
+          <!-- コメントフォーム -->
+          <div class="comment-form mt-3">
+            <%= form_with model: [@post, @comment] do |f| %>
+              <div class="d-flex">
+                <div class="flex-grow-1 ml-3">
+                  <%= f.text_area :body, rows: '2', cols: '50', placeholder: "コメントする" %>
+                  <%= f.submit "投稿", class: "btn btn-primary btn-sm float-right mt-2" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
