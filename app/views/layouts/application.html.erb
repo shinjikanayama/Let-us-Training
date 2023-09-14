@@ -23,13 +23,18 @@
      <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="/">
+          <span><img src="<%= asset_path('rogo3.png') %>" alt="ロゴ" style="width: 80px; max-height: 80px; object-fit: contain;"></span>
+        </a>
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li>
                 <%= link_to "マイページ", user_path(current_user.id), class: "btn" %>
               </li>
               <li>
-                <%= link_to "投稿一覧", posts_path, class: "btn" %>
+                <%= link_to "記録する", log_posts_path, class: "btn" %>
+              </li>
+              <li>
+                <%= link_to "みんなの記録", posts_path, class: "btn" %>
               </li>
               <li>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn" %>

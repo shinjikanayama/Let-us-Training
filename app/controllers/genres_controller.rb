@@ -5,8 +5,16 @@ class GenresController < ApplicationController
   end
 
   def create
-    Genre.create(genre_params)
-    redirect_to genres_path
+    def create
+     @genre = Genre.new(genre_params)
+       if @genre.save
+        redirect_to genres_path
+       else
+        flash.now[:alert] = 'ジャンル名を入力してください。'
+        @genres = Genre.all
+        render 'index'
+       end
+    end
   end
 
   def edit
@@ -15,9 +23,16 @@ class GenresController < ApplicationController
 
   def update
     @genre = Genre.find(params[:id])
-    @genre.update(genre_params)
-    redirect_to genres_path
+
+    if @genre.update(genre_params)
+      redirect_to genres_path, notice: '変更しました。'
+    else
+      flash.now[:alert] = 'ジャンル名を入力してください。'
+      @genre = Genre.find(params[:id])
+      render 'edit' # エラーがある場合、edit テンプレートを再表示
+    end
   end
+
 
   def destroy
     @genre = Genre.find(params[:id])

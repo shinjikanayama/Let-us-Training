@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-9">
+    <div class="col-md-8">
       <h2 class="mt-4">新規会員登録</h2>
 
         <%= form_with model: @user, url: user_registration_path do |f| %>
@@ -11,7 +11,7 @@
               <%= f.label :ユーザーネーム %><br>
             </div>
             <div class="col-md-8">
-              <%= f.text_field :name %>
+              <%= f.text_field :name, class: "form-control" %>
           　</div>
           </div>
 
@@ -20,30 +20,32 @@
              <%= f.label :メールアドレス %>
             </div>
             <div class="col-md-8">
-             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
             </div>
           </div>
 
           <div class="field">
-            <div class="col-md-6">
+            <div class="col-md-4">
              <%= f.label :パスワード %>
               <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              (<%= @minimum_password_length %> 文字以上)
               <% end %><br />
-              <%= f.password_field :password, autocomplete: "new-password" %>
+            </div>
+            <div class="col-md-8">
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
             </div>
           </div>
 
           <div class="field">
-            <div class="col-md-6">
+            <div class="col-md-4">
              <%= f.label :password_confirmation %>
             </div>
             <div class="col-md-8">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
             </div>
           </div>
 
-          <div class="actions">
+          <div class="actions my-4">
             <div class="col-md-6">
              <%= f.submit "新規登録", class: "btn btn-primary" %>
             </div>

@@ -7,8 +7,12 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    @post.save
-    redirect_to posts_path
+    if @post.save
+      redirect_to posts_path, notice: '投稿に成功しました'
+    else
+      flash.now[:alert] = '記録に失敗しました。'
+      render 'new'
+    end
   end
 
   def index
@@ -28,7 +32,8 @@ class PostsController < ApplicationController
   end
 
   def log
-    @posts = Post.all
+    user_id = current_user.id
+    @posts = Post.where(user_id: user_id)
   end
 
   def update

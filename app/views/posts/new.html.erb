@@ -1,11 +1,20 @@
+
+<!--エラーメッセージ-->
+<% if flash[:alert].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2>新規投稿</h2>
+      <h2>記録を入力</h2>
 
   　　　<%= form_with(model: @post, local: true) do |f| %>
         <div class="time">
-          <%= f.label :start_time %>
+          <%= f.label :時間 %>
           <%= f.datetime_select :start_time %>
         </div>
 
@@ -26,7 +35,7 @@
         </div>
 
         <div class="actions">
-          <%= f.submit "新規登録", class: "btn btn-primary" %>
+          <%= f.submit "記録する", class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

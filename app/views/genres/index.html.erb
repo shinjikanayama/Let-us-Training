@@ -1,6 +1,16 @@
+
+<!--エラーメッセージ-->
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
 <!--ジャンル投稿-->
-
-
 <%= form_with model: @genre, url: genres_path do |f| %>
 <div class="container ml-4 my-4">
   <h2><span class="bg-light p-2">ジャンル一覧・追加</span></h2>
