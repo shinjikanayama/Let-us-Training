@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      redirect_to posts_path, notice: '投稿に成功しました'
+      redirect_to posts_path
     else
       flash.now[:alert] = '記録に失敗しました。'
       render 'new'
@@ -36,10 +36,23 @@ class PostsController < ApplicationController
     @posts = Post.where(user_id: user_id)
   end
 
+  # 検索のためのコントローラー
+  def search
+    @keyword = params[:post][:search] if params[:post]
+    @posts_all = Post.search(@keyword)
+    @posts = @posts_all
+  end
+
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to posts_path
+    if @post.update(post_params)
+       redirect_to posts_path
+    else
+      flash.now[:alert] = '記録の変更ができませんでした。'
+      @post = Post.find(params[:id])
+      render 'edit' # エラーがある場合、editに再表示
+    end
+
   end
 
   def destroy

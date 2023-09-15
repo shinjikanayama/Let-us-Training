@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h3>検索結果</h3>
+      <p>
+        検索キーワード: "<%= @keyword %>"  <br>
+        一致した投稿: <%= @posts_all.count  %>
+      </p>
+      <ul class="posts">
+         <%= render 'post', posts: @posts %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -27,19 +27,37 @@
         </a>
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
-              <li>
-                <%= link_to "マイページ", user_path(current_user.id), class: "btn" %>
+              <li class="search">
+                <%= form_with(url: search_path, scope: :post, local: true) do |f| %>
+                  <%= f.text_field :search, placeholder: "キーワード検索" %>
+                  <% f.submit %>
+                <% end %>
               </li>
-              <li>
-                <%= link_to "記録する", log_posts_path, class: "btn" %>
-              </li>
-              <li>
-                <%= link_to "みんなの記録", posts_path, class: "btn" %>
-              </li>
+              <!--管理者-->
+              <% if current_user.admin? %>
+                <li>
+                  <%= link_to "管理者マイページ", user_path(current_user.id), class: "btn" %>
+                </li>
+                <li>
+                  <%= link_to "みんなの記録", posts_path, class: "btn" %>
+                </li>
+
+              <!--ユーザー-->
+              <% else %>
+                <li>
+                  <%= link_to "マイページ", user_path(current_user.id), class: "btn" %>
+                </li>
+                <li>
+                  <%= link_to "記録する", log_posts_path, class: "btn" %>
+                </li>
+                <li>
+                  <%= link_to "みんなの記録", posts_path, class: "btn" %>
+                </li>
+              <% end %>
               <li>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn" %>
               </li>
-
+            <!--ログイン前-->
             <% else %>
               <li>
                 <%= link_to "新規登録", new_user_registration_path, class: "btn" %>
@@ -49,6 +67,7 @@
               </li>
             <% end %>
           </ul>
+
       </div>
     </header>
     <%= yield %>

@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  #検索のため
+  post '/search',  to: 'posts#search'
+  get  '/search',  to: 'posts#search'
+
   resources :users, only: [:show, :edit, :update] do
     resource :follows, only: [:create, :destroy]
     get 'followings' => 'follows#followings', as: 'followings'

@@ -29,7 +29,7 @@ class GenresController < ApplicationController
     else
       flash.now[:alert] = 'ジャンル名を入力してください。'
       @genre = Genre.find(params[:id])
-      render 'edit' # エラーがある場合、edit テンプレートを再表示
+      render 'edit' # エラーがある場合、editに再表示
     end
   end
 

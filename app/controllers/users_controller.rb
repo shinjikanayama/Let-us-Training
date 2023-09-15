@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    @users = User.all
   end
 
   def edit
@@ -10,8 +11,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path
+    if @user.update(user_params)
+       redirect_to user_path
+    else
+      flash.now[:alert] = 'ユーザーネームを入力してください。'
+      @user = User.find(params[:id])
+      render 'edit' # エラーがある場合、editに再表示
+    end
   end
 
   private
