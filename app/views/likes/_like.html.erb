@@ -1,0 +1,12 @@
+<!-- いいね（お気に入り）ボタン -->
+<% if post.liked_by?(current_user) %>
+  <%= link_to post_likes_path(post), method: :delete, remote: true, data: {"turbolinks" => false}, class: "btn btn-danger btn-sm" do %>
+   <i class="fas fa-thumbs-up"></i>
+  <%= post.likes.count %>
+  <% end %>
+<% else %>
+  <%= link_to post_likes_path(post), method: :post, remote: true, data: {"turbolinks" => false}, class: "btn btn-primary btn-sm" do %>
+   <i class="far fa-thumbs-up"></i>
+  <%= post.likes.count %>
+  <% end %>
+<% end %>

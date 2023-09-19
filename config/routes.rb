@@ -20,11 +20,13 @@ Rails.application.routes.draw do
     get 'followers' => 'follows#followers', as: 'followers'
   end
   resources :genres, only: [:index, :edit, :create, :update, :destroy]
+
   resources :posts do
-    resources :comments, only: [:create, :destroy]
-    resource :likes, only: [:create, :destroy]
-    get 'log', on: :collection
+  resources :comments, only: [:create, :destroy]
+  resource :likes, only: [:create, :destroy] # 単数形の`resource`にする
+  get 'log', on: :collection
   end
+
 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

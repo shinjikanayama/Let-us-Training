@@ -50,17 +50,9 @@
           </span>
 
           <!-- いいね（お気に入り）ボタン -->
-          <% if @post.liked_by?(current_user) %>
-            <%= link_to post_likes_path(@post), method: :delete, class: "btn btn-danger btn-sm" do %>
-              <i class="fas fa-thumbs-up"></i>
-              <%= @post.likes.count %>
-            <% end %>
-          <% else %>
-            <%= link_to post_likes_path(@post), method: :post, class: "btn btn-primary btn-sm" do %>
-              <i class="far fa-thumbs-up"></i>
-              <%= @post.likes.count %>
-            <% end %>
-          <% end %>
+            <div id="like_buttons_<%= @post.id %>" class="d-inline">
+              <%= render "likes/like", post: @post %>
+            </div>
 
           <!-- コメントの表示 -->
           <% @post.comments.each do |comment| %>
@@ -94,6 +86,7 @@
             <% end %>
           </div>
         </div>
+
       </div>
     </div>
   </div>
