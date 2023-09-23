@@ -1,1 +1,25 @@
 @use '~bootstrap/scss/bootstrap';
+
+table.calendar-table,
+table.calendar-table th,
+table.calendar-table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+.table.calendar-table thead th {
+    border-bottom: 2px solid black;
+}
+.table.calendar-table th, .calendar-table.table td {
+    border-top: 1px solid black;
+}
+
+.table.calendar-table td {
+  width: 158px;
+  height: 125px;
+}
+
+.calendar-table td.has-events {
+  background-color: #e78c8c;
+}
