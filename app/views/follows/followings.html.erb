@@ -1,2 +1,54 @@
-<h1>Follows#followings</h1>
-<p>Find me in app/views/follows/followings.html.erb</p>
+<style>
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .table td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap; /* テキストがセルからはみ出さないように */
+    overflow: hidden; /* オーバーフローを隠す */
+    text-overflow: ellipsis; /* オーバーフローしたテキストを省略記号で表示 */
+    max-width: 200px;
+  }
+  .table h6 {
+    margin: 0;
+  }
+</style>
+
+<div class="container">
+  <h1>フォロー中</h1>
+
+    <table class="table text-center">
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <!-- プロフィール画像 -->
+            <% if user.present? && user.profile_image.attached? %>
+              <%= image_tag user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
+            <% end %>
+          </td>
+          <td><%= link_to user.name, user_path(user) %></td>
+          <td class="text-ellipsis"><%= user.goal %></td>
+          <td>
+            <% if current_user.following?(user) %>
+              <%= link_to "フォロー外す", user_follows_path(user.id), method: :delete, class: "btn btn-success btn-sm" %>
+            <% else %>
+              <%= link_to "フォローする", user_follows_path(user.id), method: :post, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+</div>
+
+

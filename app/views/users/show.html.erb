@@ -1,3 +1,19 @@
+<style>
+  .table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  .table h6 {
+    margin: 0;
+  }
+</style>
+
 <div class="container">
   <div class="row align-items-start">
     <div class="col-4">
@@ -16,12 +32,12 @@
       <div class="border" style="padding:10px;">
         <table class='table'>
 　　　　　 <tr>
-        	  <th>名前</th>
+        	  <th class="col-3">名前</th>
         	  <th><%= @user.name %></th>
           </tr>
           <tr>
         	  <th>目標</th>
-        	  <th><%= @user.goal %></th>
+        	  <th style="height: 100px;"><%= @user.goal %></th>
           </tr>
           <tr>
             <th>フォロー</th>
