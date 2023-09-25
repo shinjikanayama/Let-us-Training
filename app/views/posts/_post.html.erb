@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <% @posts.order(created_at: :desc).each do |post| %>
+     <div class="col-md-7 mb-4">
+      <%= link_to post_path(post) do %>
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            <!-- プロフィール画像 -->
+            <% if post.user.present? && post.user.profile_image.attached? %>
+              <%= image_tag post.user.profile_image, class: "rounded-circle profile-image", width: "50", height: "50" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "50", height: "50" %>
+            <% end %>
+
+            <!-- ユーザー名 -->
+            <h5 class="card-title mx-5"><%= link_to post.user.name, user_path(post.user) %></h5>
+          </div>
+
+          <div class="card-body">
+            <!-- 投稿内容 -->
+            <!--simple_formatで改行を導入-->
+            <h5 class="card-title">・<%= post.genre.name %></h5>
+            <p class="card-text"><%= simple_format(post.body) %></p>
+            <p class="text-muted">投稿日時:<%= post.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
+
+            <!-- 投稿画像 -->
+            <% if post.image.attached? %>
+              <%= image_tag post.image.variant(resize: "300x200"), class: "img-fluid" %>
+            <% end %>
+          </div>
+
+          <div class="card-footer">
+            <!-- コメントボタン -->
+            <%= link_to post_path(post), class: "btn btn-primary btn-sm mr-2" do %>
+             <i class='far fa-comment-alt'></i>　コメントする！
+            <% end %>
+
+            <!-- いいね（お気に入り）ボタン -->
+            <div id="like_buttons_<%= post.id %>" class="d-inline">
+              <%= render "likes/like", post: post %>
+            </div>
+          </div>
+        </div>
+       <% end %>
+     </div>
+    <% end %>
+  </div>
+</div>

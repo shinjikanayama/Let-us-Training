@@ -5,11 +5,13 @@ class GenresController < ApplicationController
   end
 
   def create
-    @genre = current_user.genres.build(genre_params)
+    @genre = Genre.new(genre_params)
+    @genre.user_id = current_user.id
     if @genre.save
       redirect_to genres_path
     else
       flash.now[:alert] = 'ジャンル名を入力してください。'
+      @genre = Genre.new
       @genres = current_user.genres
       render 'index'
     end

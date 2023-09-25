@@ -60,6 +60,9 @@
             <!--ログイン前-->
             <% else %>
               <li>
+                <%= link_to "About", about_path, class: "btn" %>
+              </li>
+              <li>
                 <%= link_to "新規登録", new_user_registration_path, class: "btn" %>
               </li>
               <li>
@@ -67,9 +70,14 @@
               </li>
             <% end %>
           </ul>
-
       </div>
     </header>
+    <!--エラーメッセージ-->
+      <% if flash[:alert].present? %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
     <%= yield %>
       <footer>
         <div>
@@ -77,8 +85,6 @@
         		<div class="row justify-content-center">
              © Let’s Training
             </div>
-
-
             <ul class="navbar-nav ml-auto">
                 <div class="row justify-content-center">
                   <a href="#" class="mr-4"><i class="fab fa-facebook-f"></i></a>

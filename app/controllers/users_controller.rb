@@ -19,6 +19,9 @@ class UsersController < ApplicationController
       render 'edit' # エラーがある場合、editに再表示
     end
   end
+  
+  
+  
 
   private
 

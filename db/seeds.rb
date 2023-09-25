@@ -13,10 +13,3 @@ User.find_or_create_by!(email: "zzz@zzz") do |user|
 end
 
 
-User.find_each do |user|
-  Genre.find_or_create_by!(name: "胸トレ",user_id: user.id)
-  Genre.find_or_create_by!(name: "背中トレ",user_id: user.id)
-  Genre.find_or_create_by!(name: "足トレ",user_id: user.id)
-  Genre.find_or_create_by!(name: "肩トレ",user_id: user.id)
-  Genre.find_or_create_by!(name: "その他",user_id: user.id)
-end
