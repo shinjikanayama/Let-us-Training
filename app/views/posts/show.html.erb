@@ -68,7 +68,7 @@
               <p class="comment-body">
                 <%= comment.body %>
                 <% if comment.user == current_user %>
-                  <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+                  <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn btn-danger btn-sm float-right mt-2" %>
                 <% end %>
               </p>
             </div>

@@ -59,6 +59,7 @@
 
         <% if current_user == @user %>
           <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-primary btn-sm" %>
+          <%= link_to "いいねした記録", likes_user_path(@user), class: "btn btn-success btn-sm" %>
         <% else %>
           <!-- フォロー機能 -->
           <% if current_user.following?(@user) %>

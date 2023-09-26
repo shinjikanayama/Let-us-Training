@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get  '/search',  to: 'posts#search'
 
   resources :users, only: [:show, :edit, :update] do
+    member do
+      get :likes
+    end
     resource :follows, only: [:create, :destroy]
     get 'followings' => 'follows#followings', as: 'followings'
     get 'followers' => 'follows#followers', as: 'followers'
@@ -27,10 +30,7 @@ Rails.application.routes.draw do
   get 'log', on: :collection
   end
 
-
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
 
 end
 

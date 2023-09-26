@@ -8,7 +8,8 @@
 
 User.find_or_create_by!(email: "zzz@zzz") do |user|
   user.name = "admin"
-  user.password = "zzzzzz"
+  # ダミーパスワード
+  user.password = "password"
   user.admin = true
 end
 
