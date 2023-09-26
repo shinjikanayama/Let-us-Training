@@ -25,6 +25,12 @@
         <a class="navbar-brand" href="/">
           <span><img src="<%= asset_path('rogo3.png') %>" alt="ロゴ" style="width: 80px; max-height: 80px; object-fit: contain;"></span>
         </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="search">
@@ -70,6 +76,7 @@
               </li>
             <% end %>
           </ul>
+        </div>
       </div>
     </header>
     <!--エラーメッセージ-->
@@ -87,11 +94,11 @@
             </div>
             <ul class="navbar-nav ml-auto">
                 <div class="row justify-content-center">
-                  <a href="#" class="mr-4"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#" class="mr-4"><i class="fa-brands fa-x-twitter"></i></a>
-                  <a href="#" class="mr-4"><i class="fab fa-google-plus-g"></i></a>
-                  <a href="#" class="mr-4"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fa-brands fa-threads"></i></i></a>
+                  <a href="#" class="mr-4"><i class="fab fa-facebook-f fa-lg"></i></a>
+                  <a href="#" class="mr-4"><i class="fa-brands fa-x-twitter fa-lg"></i></a>
+                  <a href="#" class="mr-4"><i class="fab fa-google-plus-g fa-lg"></i></a>
+                  <a href="#" class="mr-4"><i class="fab fa-instagram fa-lg"></i></a>
+                  <a href="#" ><i class="fa-brands fa-threads fa-lg"></i></i></a>
                 </div>
             </ul>
 

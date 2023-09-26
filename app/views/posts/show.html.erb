@@ -44,46 +44,21 @@
 
         <div class="card-footer">
           <!-- コメント数 -->
-          <span class="ml-3">
-            <i class="far fa-comment-alt"></i>
-            <%= @post.comments.count %>件
-          </span>
-
+          <div id="comment_counter">
+            <%= render "comments/counter", post: @post %>
+          </div>
           <!-- いいね（お気に入り）ボタン -->
-            <div id="like_buttons_<%= @post.id %>" class="d-inline">
-              <%= render "likes/like", post: @post %>
-            </div>
-
+          <div id="like_buttons_<%= @post.id %>" class="d-inline">
+            <%= render "likes/like", post: @post %>
+          </div>
           <!-- コメントの表示 -->
-          <% @post.comments.each do |comment| %>
-            <div class="comment">
-              <% if comment.user.profile_image.present? %>
-                <%= image_tag comment.user.profile_image, size: "50x50", class: "rounded-circle" %>
-              <% else %>
-                <%= image_tag 'no_image.jpg', size: "50x50", class: "rounded-circle" %>
-              <% end %>
-              <span class="comment-info">
-                <%= comment.user.name %> <%= comment.created_at.strftime('%Y/%m/%d') %>
-              </span>
-              <p class="comment-body">
-                <%= comment.body %>
-                <% if comment.user == current_user %>
-                  <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn btn-danger btn-sm float-right mt-2" %>
-                <% end %>
-              </p>
-            </div>
-          <% end %>
+          <div id="comment_index">
+            <%= render "comments/index", post: @post %>
+          </div>
 
           <!-- コメントフォーム -->
           <div class="comment-form mt-3">
-            <%= form_with model: [@post, @comment] do |f| %>
-              <div class="d-flex">
-                <div class="flex-grow-1 ml-3">
-                  <%= f.text_area :body, rows: '2', cols: '50', placeholder: "コメントする" %>
-                  <%= f.submit "投稿", class: "btn btn-primary btn-sm float-right mt-2" %>
-                </div>
-              </div>
-            <% end %>
+            <%= render "comments/form", post: @post, comment: @comment %>
           </div>
         </div>
 

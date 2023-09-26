@@ -8,7 +8,7 @@
 
 User.find_or_create_by!(email: "zzz@zzz") do |user|
   user.name = "admin"
-  user.password = "zzzzzz"
+  user.password = ENV['DB_PASSWORD_ADMIN']
   user.admin = true
 end
 
