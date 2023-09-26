@@ -43,13 +43,15 @@
         </div>
 
         <div class="card-footer">
-          <!-- コメント数 -->
-          <div id="comment_counter">
-            <%= render "comments/counter", post: @post %>
-          </div>
-          <!-- いいね（お気に入り）ボタン -->
-          <div id="like_buttons_<%= @post.id %>" class="d-inline">
-            <%= render "likes/like", post: @post %>
+          <div class="item" style="display: flex;">
+            <!-- コメント数 -->
+            <div id="comment_counter">
+              <%= render "comments/counter", post: @post %>
+            </div>
+            <!-- いいね（お気に入り）ボタン -->
+            <div id="like_buttons_<%= @post.id %>" class="d-inline ml-3">
+              <%= render "likes/like", post: @post %>
+            </div>
           </div>
           <!-- コメントの表示 -->
           <div id="comment_index">
