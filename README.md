@@ -22,7 +22,12 @@
 - 自分がいつトレーニングしたか見たいとき
 ​
 ## 設計書
-後ほど作成
+- ER図
+- https://drive.google.com/file/d/1Lu3klxk1gmfmH73Ui-EN4EH8CQcBcxqE/view?usp=sharing
+- Let's Training 設計課題 テーブル提議書
+- https://docs.google.com/spreadsheets/d/1O1ZusLisKER4LBWINPzcRtegSsOs_W0dCtKRFVzellg/edit?usp=sharing
+- Let's Training 詳細設計書
+- https://docs.google.com/spreadsheets/d/1hsI9A4h_WKQNaXYSGV2Ayx_c41T0vta_o2VgLD6gK2s/edit?usp=sharing
 ​
 ## 開発環境
 - OS：Linux(CentOS)
@@ -32,7 +37,6 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+- photoac
+- https://www.photo-ac.com/
 折りたたむ
