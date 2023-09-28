@@ -22,11 +22,13 @@
 - 自分がいつトレーニングしたか見たいとき
 ​
 ## 設計書
+- 画面遷移図
+- https://drive.google.com/file/d/1WRI7ROD0fYJwxiAKomILk9Wtj0duyU5o/view?usp=sharing
 - ER図
 - https://drive.google.com/file/d/1Lu3klxk1gmfmH73Ui-EN4EH8CQcBcxqE/view?usp=sharing
-- Let's Training 設計課題 テーブル提議書
+- 設計課題 テーブル提議書
 - https://docs.google.com/spreadsheets/d/1O1ZusLisKER4LBWINPzcRtegSsOs_W0dCtKRFVzellg/edit?usp=sharing
-- Let's Training 詳細設計書
+- 詳細設計書
 - https://docs.google.com/spreadsheets/d/1hsI9A4h_WKQNaXYSGV2Ayx_c41T0vta_o2VgLD6gK2s/edit?usp=sharing
 ​
 ## 開発環境
