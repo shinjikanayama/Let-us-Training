@@ -2,7 +2,6 @@ class LikesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @post.score = Language.get_data(post_params[:body])
     like = current_user.likes.new(post_id: @post.id)
     like.save
   end
