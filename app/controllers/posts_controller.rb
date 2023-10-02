@@ -46,6 +46,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    @post.score = Language.get_data(post_params[:body])
     if @post.update(post_params)
        redirect_to posts_path
     else
