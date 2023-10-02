@@ -34,7 +34,7 @@
           <!--simple_formatで改行を導入-->
           <h5 class="card-title">・<%= @post.genre.name %></h5>
           <p class="card-text"><%= simple_format(@post.body) %></p>
-          <span class="sentiment-score text-muted">本文の感情分析スコア(-1.0~1.0) <%= @post.score %>スコア</span>
+          <span class="sentiment-score text-muted">本文の感情分析スコア(-1.0~1.0) <%= @post.score %></span>
           <p class="text-muted">投稿日時:<%= @post.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
 
           <!-- 投稿画像 -->
