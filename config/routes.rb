@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post '/search',  to: 'posts#search'
   get  '/search',  to: 'posts#search'
 
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:show, :edit, :update, :destroy] do
     member do
       get :likes
     end

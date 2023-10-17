@@ -21,6 +21,16 @@ class User < ApplicationRecord
   has_many :followings, through: :follows, source: :followed
   has_many :followers, through: :reverse_of_follows, source: :follower
 
+  has_many :posts, :dependent => :destroy
+  # 退会ユーザーに紐づくお気に入りも削除する場合
+  has_many :likes, :dependent => :destroy
+  # 退会ユーザーに紐づくコメントも削除する場合
+  has_many :comments, :dependent => :destroy
+  # 退会でゲストは退会できないようにする
+  def guest?
+    self.email == "guest@gmail.com"
+  end
+
   # プロフィール画像がない場合no_image.jpgを表示
   def get_profile_image
     if profile_image.attached?

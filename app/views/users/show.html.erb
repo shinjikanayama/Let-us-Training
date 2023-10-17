@@ -12,6 +12,9 @@
   .table h6 {
     margin: 0;
   }
+  .with-border {
+     border: 2px solid #dee2e6;
+  }
 </style>
 <div class="container">
   <div class="row align-items-start">
@@ -19,9 +22,9 @@
       <div class="user-profile text-center">
         <div class="profile-header">
           <% if @user.profile_image.present? %>
-            <%= image_tag @user.profile_image, class: "rounded-circle profile-image", width: "150", height: "150" %>
+            <%= image_tag @user.profile_image, class: "rounded-circle profile-image with-border", width: "150", height: "150" %>
           <% else %>
-            <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "150", height: "150" %>
+            <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image with-border", width: "150", height: "150" %>
           <% end %>
         </div>
       </div>
@@ -59,6 +62,7 @@
         <% if current_user == @user %>
           <%= link_to 'プロフィールを編集する', edit_user_path(@user), class: "btn btn-primary btn-sm" %>
           <%= link_to "いいねした記録", likes_user_path(@user), class: "btn btn-success btn-sm" %>
+
         <% else %>
           <!-- フォロー機能 -->
           <% if current_user.following?(@user) %>
@@ -79,6 +83,7 @@
               <tr>
                 <th>メールアドレス</th>
                 <th>名前</th>
+                <th>退会処理</th>
               </tr>
             </thead>
             <tbody>
@@ -86,6 +91,9 @@
                 <tr>
                   <td><%= u.email %></td>
                   <td><%= u.name %></td>
+                  <% unless u.guest? || u.admin? %>
+                    <td><%= link_to "退会させる",user_path(u), class: "destroy-user btn btn-danger", method: :delete, "data-confirm" => "本当に退会させますか？" %></td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>

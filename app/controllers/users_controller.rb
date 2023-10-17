@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:likes]
+  before_action :set_user, only: [:likes, :show, :comments, :destroy]
 
   def show
     @user = User.find(params[:id])
@@ -28,7 +28,12 @@ class UsersController < ApplicationController
     @like_posts = Post.find(likes)
   end
 
-
+  def destroy
+    @users = User.all
+    @user.destroy
+    flash[:notice] = 'ユーザーを削除しました。'
+    redirect_back(fallback_location: root_path)
+  end
 
 
   private
