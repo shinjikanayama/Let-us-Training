@@ -1,4 +1,8 @@
-
+<style>
+   .with-border {
+     border: 2px solid #dee2e6;
+  }
+</style>
 <%= form_with model: @user do |f| %>
 
 <div class="container" style="margin-top: 40px;">
@@ -9,9 +13,9 @@
         <div class="form-group row">
           <div class="col-md-4">
             <% if @user.profile_image.present? %>
-              <%= image_tag @user.profile_image, class: "rounded-circle profile-image", width: "150", height: "150" %>
+              <%= image_tag @user.profile_image, class: "rounded-circle profile-image with-border", width: "150", height: "150" %>
             <% else %>
-              <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image", width: "150", height: "150" %>
+              <%= image_tag 'no_image.jpg', class: "rounded-circle profile-image with-border", width: "150", height: "150" %>
             <% end %>
             </div>
           <div class="col-md-8">
